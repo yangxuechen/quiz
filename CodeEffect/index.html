@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap-grid.css">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap-reboot.css">
+
+    <title>首页</title>
+
+
+</head>
+<body style=" height: 100%;
+  width: 100%;
+  background: url('image/bg.jpg') no-repeat;
+  background-size: cover;
+  position: absolute;
+  overflow: hidden;
+  opacity:1;">
+
+  <div class="container" >
+      <div class="row clearfix" style="margin-top: 150px">
+
+          <div class="col-md-6 column">
+              <form role="form">
+                  <div class="form-group">
+                      <label ><b><font size="3" color="white">点亮9号端口控制的小灯的代码</font></b></label><input type="text" class="form-control" id="code" />
+                  </div>
+                  <div class="checkbox">
+                  </div>
+                  <button type="button" class="btn btn-success" id="btn_submit">提交</button>
+                  <button type="button" class="btn btn-info" id="btn_refresh">重新尝试</button>
+              </form>
+          </div>
+
+          <div class="col-md-6 column">
+              <img alt="140x140" id="myImg" src="image/arduinoLED.png" class="img-rounded" style="width: 600px;height: 400px"/>
+          </div>
+      </div>
+  </div>
+  <script src="js/jquery.min.js"></script>
+  <script src="js/bootstrap.bundle.js"></script>
+  <script src="js/bootstrap.js"></script>
+  <script>
+      $(function () {
+
+          $('<audio id="chatAudio_error"><source src="notify.ogg" type="audio/ogg"><source src="MyAudio/audio1.mp3" type="audio/mpeg"><source src="MyAudio/audio1.mp3" type="audio/wav"></audio>').appendTo('body');
+          //载入声音文件
+          $('<audio id="chatAudio_correct"><source src="notify.ogg" type="audio/ogg"><source src="MyAudio/correct.mp3" type="audio/mpeg"><source src="MyAudio/correct.mp3" type="audio/wav"></audio>').appendTo('body');
+          $("#btn_submit").click(function () {
+             // alert("被点击");
+              var codeVal =$("#code").val();
+              console.log(codeVal);
+              if("digitalWrite(9,HIGH);"==codeVal){
+                  console.log("correct");
+                  //更改图片
+                  $("#myImg").attr("src","image/arduinoLED2.png");
+                  $('#chatAudio_correct')[0].play(); //播放声音
+              }else{
+                  console.log("error");
+                  $("#myImg").attr("src","image/kq.gif");
+                  $('#chatAudio_error')[0].play(); //播放声音
+              }
+          });
+          $("#btn_refresh").click(function () {
+              window.location.reload();
+          });
+      })
+  </script>
+</body>
+</html>
